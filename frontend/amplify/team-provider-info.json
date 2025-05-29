@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-ainotesapp-dev-ec7b2-authRole",
+      "UnauthRoleArn": "arn:aws:iam::253239971635:role/amplify-ainotesapp-dev-ec7b2-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::253239971635:role/amplify-ainotesapp-dev-ec7b2-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-ainotesapp-dev-ec7b2-deployment",
+      "UnauthRoleName": "amplify-ainotesapp-dev-ec7b2-unauthRole",
+      "StackName": "amplify-ainotesapp-dev-ec7b2",
+      "StackId": "arn:aws:cloudformation:us-east-1:253239971635:stack/amplify-ainotesapp-dev-ec7b2/79b89140-38f4-11f0-9362-12b6492ee685",
+      "AmplifyAppId": "d2xyhg677znh8m"
+    },
+    "categories": {
+      "auth": {
+        "ainotesappb5676726": {}
+      }
+    }
+  }
+}
