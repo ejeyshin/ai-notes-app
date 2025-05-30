@@ -196,3 +196,26 @@ resource "aws_lambda_permission" "allow_apigw_text_to_speech" {
   principal     = "apigateway.amazonaws.com"
   source_arn    = "${aws_apigatewayv2_api.api.execution_arn}/*/*"
 }
+
+
+resource "aws_apigatewayv2_integration" "textract_lambda" {
+  api_id             = aws_apigatewayv2_api.api.id
+  integration_type   = "AWS_PROXY"
+  integration_uri    = aws_lambda_function.textract_image.invoke_arn
+  integration_method = "POST"
+  payload_format_version = "2.0"
+}
+
+resource "aws_apigatewayv2_route" "textract" {
+  api_id    = aws_apigatewayv2_api.api.id
+  route_key = "POST /textractImage"
+  target    = "integrations/${aws_apigatewayv2_integration.textract_lambda.id}"
+}
+
+resource "aws_lambda_permission" "allow_apigw_textract" {
+  statement_id  = "AllowExecutionFromAPIGatewayTextract"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.textract_image.function_name
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${aws_apigatewayv2_api.api.execution_arn}/*/*"
+}

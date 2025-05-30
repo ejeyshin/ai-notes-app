@@ -198,3 +198,35 @@ resource "aws_iam_role_policy" "polly_policy" {
     ]
   })
 }
+
+# Textract Lambda function
+resource "aws_lambda_function" "textract_image" {
+  filename         = "${path.module}/textractImage.zip"
+  function_name    = "textractImage"
+  handler          = "textractImage.handler"
+  runtime          = "nodejs18.x"
+  role             = aws_iam_role.lambda_exec_role.arn
+  source_code_hash = filebase64sha256("${path.module}/textractImage.zip")
+  
+  timeout     = 30
+  memory_size = 512
+}
+
+
+resource "aws_iam_role_policy" "textract_policy" {
+  name = "allow-textract-detect-text"
+  role = aws_iam_role.lambda_exec_role.id
+
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Action = [
+          "textract:DetectDocumentText"
+        ],
+        Resource = "*"
+      }
+    ]
+  })
+}

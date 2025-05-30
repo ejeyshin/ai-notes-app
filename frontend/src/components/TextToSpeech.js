@@ -6,7 +6,7 @@ function TextToSpeech({ text, label = "Listen" }) {
   const [currentAudio, setCurrentAudio] = useState(null);
 
   const playText = async () => {
-    
+    // Stop current audio if playing
     if (isPlaying && currentAudio) {
       currentAudio.pause();
       currentAudio.currentTime = 0;
@@ -41,7 +41,7 @@ function TextToSpeech({ text, label = "Listen" }) {
 
       console.log('Received audio data');
 
-      
+      // Convert base64 to audio blob
       const audioData = atob(data.audioData);
       const audioArray = new Uint8Array(audioData.length);
       for (let i = 0; i < audioData.length; i++) {
@@ -63,7 +63,7 @@ function TextToSpeech({ text, label = "Listen" }) {
         console.log('Audio finished playing');
         setIsPlaying(false);
         setCurrentAudio(null);
-        URL.revokeObjectURL(audioUrl); 
+        URL.revokeObjectURL(audioUrl); // Clean up memory
       };
       
       audio.onerror = (error) => {
@@ -89,7 +89,7 @@ function TextToSpeech({ text, label = "Listen" }) {
       onClick={playText}
       disabled={isLoading}
       className={`btn ${isPlaying ? 'btn-secondary' : 'btn-primary'}`}
-      style={{ marginLeft: '0.5rem', fontSize: '12px' }}
+      style={{ marginLeft: '0.5rem' }}
     >
       {isLoading ? '🔄 Loading...' : isPlaying ? '⏹️ Stop' : `🔊 ${label}`}
     </button>

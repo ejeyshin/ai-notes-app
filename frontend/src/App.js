@@ -12,7 +12,7 @@ import TextToSpeech from './components/TextToSpeech';
 const FormattedText = ({ text }) => {
   if (!text) return '';
   
-
+  
   const formattedText = text
     .replace(/(\d+\.\s[^.]*\.)\s+/g, '$1\n\n') 
     .replace(/([.!?])\s+(?=\d+\.)/g, '$1\n\n')  
@@ -41,15 +41,14 @@ function Header() {
   return (
     <div className="app-header">
       <div className="header-left">
-        <img src="/logo.png" alt="AI Notes Icon" className="logo" />
         <div>
           <h1 className="app-title">AI-Powered Study Note Assistant</h1>
-          <p className="app-subtitle"><em>Summarize, Quiz, Listen</em></p>
+          <p className="app-subtitle">Summarize, Easy & Clear Explanation, Listen</p>
         </div>
       </div>
-      <div>
-        <p className="user-info">{user?.username}</p>
-        <button onClick={signOut} className="btn btn-secondary">Sign Out</button>
+      <div className="header-right">
+        <p className="user-info">UserID: {user?.username}</p>
+        <button onClick={signOut} className="sign-out-btn">Sign Out</button>
       </div>
     </div>
   );
@@ -179,7 +178,7 @@ function App() {
                   </div>
                   
                   {editingNote && editingNote.noteId === note.noteId ? (
-                    
+                    // EDIT MODE for summary and beginner note
                     <div>
                       <div className="note-field">
                         <strong>📋 Summary:</strong><br />
@@ -213,21 +212,21 @@ function App() {
                       </button>
                     </div>
                   ) : (
-                    
+                    // VIEW MODE
                     <div>
                       <div className="note-field">
                         <strong>📋 Summary:</strong>
                         <div className="text-content" style={{ marginTop: '0.5rem' }}>
                           <FormattedText text={note.summary} />
                         </div>
-                        <TextToSpeech text={note.summary} label="Listen to Summary" />
+                        <TextToSpeech text={note.summary} label="Listen" />
                       </div>
                       <div className="note-field">
                         <strong>🌱 Beginner-Friendly Explanation:</strong>
                         <div className="text-content" style={{ marginTop: '0.5rem' }}>
                           <FormattedText text={note.beginnerNote} />
                         </div>
-                        <TextToSpeech text={note.beginnerNote} label="Listen to Explanation" />
+                        <TextToSpeech text={note.beginnerNote} label="Listen" />
                       </div>
                       
                       <button 
